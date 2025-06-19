@@ -1,0 +1,300 @@
+{
+ "cells": [
+  {
+   "cell_type": "markdown",
+   "id": "73208caa-81b2-440f-af54-b0adf3a17694",
+   "metadata": {},
+   "source": [
+    "Give filename on top as 'speech to text practical'.and start coding.then 'Run'.finally click 'save and checkpoint'under file "
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "id": "d91ea13e-eb81-479b-a076-5b7cb0a1c085",
+   "metadata": {},
+   "source": [
+    "Lets build our small application for speech to text conversion.then learn how to use of google system here.After converting speech into text we can automatically write into any documents.If document is big and difficult to write ,then we use our application which converts speech into text and then write into document."
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "id": "ac6a9f6d-14c5-4778-acd4-6a31edc9c619",
+   "metadata": {},
+   "source": [
+    "Intsall pyaudio"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 1,
+   "id": "d8af5342-0e84-4d70-a3ee-7dec903d2412",
+   "metadata": {},
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "Collecting pyaudio\n",
+      "  Downloading PyAudio-0.2.14-cp312-cp312-win_amd64.whl.metadata (2.7 kB)\n",
+      "Downloading PyAudio-0.2.14-cp312-cp312-win_amd64.whl (164 kB)\n",
+      "Installing collected packages: pyaudio\n",
+      "Successfully installed pyaudio-0.2.14\n"
+     ]
+    }
+   ],
+   "source": [
+    "!pip install pyaudio"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 3,
+   "id": "5c998aa1-0cae-4635-8881-bad993548245",
+   "metadata": {},
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "Collecting SpeechRecognition\n",
+      "  Downloading speechrecognition-3.14.3-py3-none-any.whl.metadata (30 kB)\n",
+      "Requirement already satisfied: typing-extensions in c:\\users\\welcome\\anaconda3\\lib\\site-packages (from SpeechRecognition) (4.11.0)\n",
+      "Downloading speechrecognition-3.14.3-py3-none-any.whl (32.9 MB)\n",
+      "   ---------------------------------------- 0.0/32.9 MB ? eta -:--:--\n",
+      "   ------- -------------------------------- 6.6/32.9 MB 31.0 MB/s eta 0:00:01\n",
+      "   ------------------ --------------------- 14.9/32.9 MB 39.1 MB/s eta 0:00:01\n",
+      "   ----------------------------- ---------- 23.9/32.9 MB 43.1 MB/s eta 0:00:01\n",
+      "   ---------------------------------------  32.8/32.9 MB 40.8 MB/s eta 0:00:01\n",
+      "   ---------------------------------------- 32.9/32.9 MB 38.7 MB/s eta 0:00:00\n",
+      "Installing collected packages: SpeechRecognition\n",
+      "Successfully installed SpeechRecognition-3.14.3\n",
+      "Note: you may need to restart the kernel to use updated packages.\n"
+     ]
+    }
+   ],
+   "source": [
+    "pip install SpeechRecognition"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 4,
+   "id": "4963e04e-444a-469c-85e0-b185ec7968a0",
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "import speech_recognition as sr"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 6,
+   "id": "a6351fc0-6154-42da-8e39-61986d7070a0",
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "r=sr.Recognizer()"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "id": "79ad21c9-1295-47d3-8804-afd957271e61",
+   "metadata": {},
+   "source": [
+    "#Reading microphone as source\n",
+    "#listening the speech and store in audio variable"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 8,
+   "id": "862a74e4-e4e7-4a1e-8299-5a80d242bb11",
+   "metadata": {},
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "start Talking\n",
+      "here is your converted text below\n"
+     ]
+    }
+   ],
+   "source": [
+    "with sr.Microphone() as source:\n",
+    "    print(\"start Talking\")\n",
+    "    audio_text=r.listen(source)\n",
+    "    print(\"here is your converted text below\")\n",
+    "    "
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 9,
+   "id": "c0681060-4fff-4e46-a7f5-75c7303f0a67",
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "#recognize() method will throw error if API is unreachable hence we use exception handling"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 10,
+   "id": "8416b9f5-1573-40fc-b6e1-8386374a5157",
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "#using google speech recognition"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 14,
+   "id": "ebde1b5c-eeb2-40cf-96c3-990af50afd1f",
+   "metadata": {},
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "hello hi how are you\n"
+     ]
+    }
+   ],
+   "source": [
+    "try:\n",
+    "     speech_to_text=r.recognize_google(audio_text)\n",
+    "     print(speech_to_text)\n",
+    "except: \n",
+    "     print(\"Sorry,I did not get you\")"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "id": "4359492b-cebf-4c81-990f-956cbe92c91a",
+   "metadata": {},
+   "source": [
+    "#Recognizer method is case sensitive and we instantiate into r object.So instead of using everytime srRecognizer() we use r.We usr srMicrophone() as source to speak and store it in source and print start talking.so we can know we should start speaking.We store some data in audio_text variable .some data means r uses listen() where we give input data through source.microphone is our source.r.listen() listens whatever we speak and everything is in audio_text variable.then after converting we print the text."
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "id": "582eb53a-86b7-481c-9794-20172296722c",
+   "metadata": {},
+   "source": [
+    "#we use recognize_google() as google software.It recognize speech using Recognizer() of r then we store in speech_to_text variable and print it."
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "id": "3e18bcb0-d5e3-4503-9562-8b27101dcc9f",
+   "metadata": {},
+   "source": [
+    "#Now store this  converted text data in document.we can read any article and store it in document.lets work on file operation to create and write data in document\n"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "id": "6933a10f-5b8f-4149-8adb-018219fe6f88",
+   "metadata": {},
+   "source": [
+    "#open filw with write mode"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 15,
+   "id": "4bedce45-6b9a-4761-bf9c-0d4c6ba4a27d",
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "f=open(\"story.doc\",\"w\")"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "id": "fbbeccf9-8901-48c3-8e95-27f055643596",
+   "metadata": {},
+   "source": [
+    "#writes recorded content into file"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 16,
+   "id": "3b0f52e3-cd07-447e-b99d-ee6e12e4a6a1",
+   "metadata": {},
+   "outputs": [
+    {
+     "data": {
+      "text/plain": [
+       "20"
+      ]
+     },
+     "execution_count": 16,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "f.write(speech_to_text)"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "id": "d8ef0ff2-8c59-4a98-ac9f-6c898dfd57b7",
+   "metadata": {},
+   "source": [
+    "#close the file"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 17,
+   "id": "edd8e17e-a7b4-4645-8deb-67dfae372090",
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "f.close()"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "id": "5614452a-0048-4e29-a321-32a2bf0b7206",
+   "metadata": {},
+   "source": [
+    "we can write into .doc ,.txt,etc.,The story.doc need not to be created already .just go and open that file in specified path.and the file will contain our audio text"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "id": "d994b7ff-40de-4114-8697-a3df2a44cc4e",
+   "metadata": {},
+   "outputs": [],
+   "source": []
+  }
+ ],
+ "metadata": {
+  "kernelspec": {
+   "display_name": "Python [conda env:base] *",
+   "language": "python",
+   "name": "conda-base-py"
+  },
+  "language_info": {
+   "codemirror_mode": {
+    "name": "ipython",
+    "version": 3
+   },
+   "file_extension": ".py",
+   "mimetype": "text/x-python",
+   "name": "python",
+   "nbconvert_exporter": "python",
+   "pygments_lexer": "ipython3",
+   "version": "3.12.7"
+  }
+ },
+ "nbformat": 4,
+ "nbformat_minor": 5
+}
